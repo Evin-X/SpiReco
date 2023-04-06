@@ -1,0 +1,2 @@
+# SpiReco
+Spiking Recognition Dataset
