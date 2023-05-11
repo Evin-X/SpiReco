@@ -10,8 +10,13 @@ This work provides the first object recognition dataset for spike camera. This d
 <div align=center>
 <img alt="Figure 1 width="50%" src="https://github.com/Evin-X/SpiReco/blob/main/Figure/sample.png"/>
 </div>
-
-
+                                                                                              
+<br/>
+This work also proposes a novel spiking representation for vision tasks, as illustrated as follows,      
+                                                                                                  
+<div align=center>
+<img alt="Figure 1 width="50%" src="https://github.com/Evin-X/SpiReco/blob/main/Figure/framework.png"/>
+</div>
 
 #### __$\bullet$ Dataset__
 Download: [Dropbox Link](https://www.dropbox.com/scl/fo/mqycpdgim9slw2eghfkce/h?dl=0&rlkey=9i6nnqg7m9mv8t88e91ccmhnx)
@@ -19,4 +24,4 @@ Download: [Dropbox Link](https://www.dropbox.com/scl/fo/mqycpdgim9slw2eghfkce/h?
 
 
 #### __$\bullet$ Code of the Recognition Framework__
-Model codes will be released soon after the paper is accepted.
+Codes will be released soon.
