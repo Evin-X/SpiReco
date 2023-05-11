@@ -12,7 +12,7 @@ This work provides the first object recognition dataset for spike camera. This d
 </div>
                                                                                               
 <br/>
-This work also proposes a novel spiking representation for vision tasks, as illustrated as follows,      
+This work also proposes a novel spiking representation for vision tasks, as illustrated in follows,      
                                                                                                   
 <div align=center>
 <img alt="Figure 1 width="50%" src="https://github.com/Evin-X/SpiReco/blob/main/Figure/framework.png"/>
