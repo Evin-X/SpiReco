@@ -44,32 +44,36 @@ class DefromConv(nn.Module):
 
 
 class Denoise(nn.Module):
-    '''
-    Denoise Module 
-    '''
+    """
+    Denoise Module
+    """
     def __init__(self, T):
         super(Denoise, self).__init__()
-        self.T = 7
+        self.T = T
         self.dt = 3
         self.size = 7
-        self.localconv_0 = nn.Conv2d(self.dt-1, 1, self.size, padding=self.size//2)
-        self.localconv_1 = nn.Conv2d(self.dt, 1, self.size, padding=self.size//2) 
-        self.localconv_2 = nn.Conv2d(self.dt, 1, self.size, padding=self.size//2)
-        self.localconv_3 = nn.Conv2d(self.dt, 1, self.size, padding=self.size//2) 
-        self.localconv_4 = nn.Conv2d(self.dt, 1, self.size, padding=self.size//2) 
-        self.localconv_5 = nn.Conv2d(self.dt, 1, self.size, padding=self.size//2) 
-        self.localconv_6 = nn.Conv2d(self.dt-1, 1, self.size, padding=self.size//2)
+        
+        # Initialize convolution layers dynamically
+        self.localconvs = nn.ModuleList()
+        for i in range(T):
+            # For the first and last layer, use dt-1 channels; for others, use dt channels
+            channels = self.dt - 1 if i == 0 or i == T-1 else self.dt
+            conv = nn.Conv2d(channels, 1, self.size, padding=self.size // 2)
+            self.localconvs.append(conv)
 
     def forward(self, x):
-        x_s = self.localconv_0(x[:,0:self.dt-1,...])
-        x_0 = self.localconv_1(x[:,0:0+self.dt,...])
-        x_1 = self.localconv_2(x[:,1:1+self.dt,...])
-        x_2 = self.localconv_3(x[:,2:2+self.dt,...])
-        x_3 = self.localconv_4(x[:,3:3+self.dt,...])
-        x_4 = self.localconv_5(x[:,4:4+self.dt,...])
-        x_l = self.localconv_6(x[:,4:4+self.dt-1,...])
-        x = torch.cat((x_s, x_0, x_1, x_2, x_3, x_4, x_l), axis=1)
-
+        outputs = []
+        # Apply each convolution to the appropriate slice of x
+        for i, conv in enumerate(self.localconvs):
+            if i == 0:
+                slice = x[:, 0:self.dt-1, ...]
+            elif i == self.T-1:
+                slice = x[:, -self.dt+1:, ...]
+            else:
+                slice = x[:, i-1:i+self.dt-1, ...]
+            outputs.append(conv(slice))
+        # Concatenate all outputs along the channel dimension
+        x = torch.cat(outputs, axis=1)
         return x
 
 
