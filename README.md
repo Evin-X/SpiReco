@@ -1,5 +1,5 @@
 # SpiReco
-A **Spi**king **Reco**gnition (SpiReco) dataset of high-speed moving objects.
+**Spi**king **Reco**gnition (**SpiReco**).
 
 
 #### __$\bullet$ Introduction__
